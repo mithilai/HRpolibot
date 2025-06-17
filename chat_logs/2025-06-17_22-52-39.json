@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "what are the different leaves an employee can get"
+  },
+  {
+    "role": "assistant",
+    "content": "According to the HR policy document, an employee is entitled to the following types of leaves:\n\n1. **Casual Leave (CL)**: 7 leaves per year, for casual work or planned short events.\n2. **Sick Leave (SL)**: 7 leaves per year, for medical reasons.\n3. **Earned Leave**: 12 leaves per year, earned at a rate of 1 leave per month, from January to December.\n\nAdditionally, an employee may also be eligible for:\n\n* **Leave without Pay (LWP)**: if they do not have enough leave balance and still want to take leave.\n* **Emergency Leave**: in case of unavoidable circumstances, which needs to be approved by the reporting officer and HR manager."
+  }
+]
