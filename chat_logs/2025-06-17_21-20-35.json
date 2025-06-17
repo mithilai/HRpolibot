@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "hi"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello. How can I assist you with the HR policy documents today? Do you have a specific question or would you like me to clarify something from the provided context?"
+  }
+]

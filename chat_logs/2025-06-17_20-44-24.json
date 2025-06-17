@@ -1,0 +1,50 @@
+[
+  {
+    "role": "user",
+    "content": "hello"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello. How can I assist you with the HR policy documents today? Do you have a specific question or topic you'd like to discuss?"
+  },
+  {
+    "role": "user",
+    "content": "i want to know about sandwich rule ?"
+  },
+  {
+    "role": "assistant",
+    "content": "The sandwich rule applies to leaves. According to the policy, if a weekly off or Paid Holiday falls in between two leaves, it will be counted towards the leaves. This is known as a \"sandwich leave\".\n\nFor example, if you take a leave on Friday and another leave on Monday, the weekend (Saturday and Sunday) will also be counted as part of your leave.\n\nSimilarly, if you take a half-day leave on Friday and another half-day leave on Monday, the weekend will also be counted as part of your leave.\n\nIn both cases, the weekly off or Paid Holiday (Saturday and Sunday) is \"sandwiched\" between two leaves, hence the name \"sandwich leave\"."
+  },
+  {
+    "role": "user",
+    "content": "Food Reimbursement conditions"
+  },
+  {
+    "role": "assistant",
+    "content": "To be eligible for food reimbursement, an employee must work an additional 2.5 hours beyond their normal work duration, which should be pre-approved by the Technical Project Manager. The reimbursement amount is limited to between 150 to 200 rupees, and the extended hours must be for a client or organization need, not due to personal reasons such as pending tasks, absenteeism, or long breaks."
+  },
+  {
+    "role": "user",
+    "content": "what is the office timings"
+  },
+  {
+    "role": "assistant",
+    "content": "The office timings are 10:00 AM to 7:00 PM on all working days. Employees are expected to work for 9 hours, and there is a flexibility of 15 minutes allowed for late coming. If an employee comes in late, they must still complete their 9 hours of work."
+  },
+  {
+    "role": "user",
+    "content": "Night Shift office timings"
+  },
+  {
+    "role": "assistant",
+    "content": "Night Shift office timings are as follows:\n\n1. Applicable to employees working from 9:00 PM to 5:00 AM.\n2. Employees must work for 8 hours, excluding any time spent outside office premises for non-official purposes.\n3. A flexibility of 15 minutes late is permitted.\n\nIf an employee is late, the following rules apply:\n- Flexibility is given for up to 2 times late coming in a month.\n- From the 3rd late coming onwards, 0.5 Leave will be deducted for each late coming."
+  },
+  {
+    "role": "user",
+    "content": "what is the leave policy"
+  },
+  {
+    "role": "assistant",
+    "content": "The Leave Policy is designed to regulate all forms of leave that are accrued and outline the procedures to be followed for granting and availing of such leave. The objective is to facilitate employees to re-energize and take care of unexpected exigencies. \n\nKey points of the policy include:\n\n1. **Applicability**: The policy applies to all permanent employees and probationers.\n2. **Leave Entitlement**: Official leaves are entitled for the Calendar Year (January to December) and can be taken subject to availability in the employee's account.\n3. **Leave Rules**:\n   - Frequent or continuous leaves are not allowed and may be questioned by HR.\n   - Leaves on Fridays and Mondays, or on Training Saturdays, require prior intimation and justification.\n   - Continuous Earned Leaves (EL) should not exceed 10 workdays without approval.\n4. **Additional Leaves**: Specific leaves like Paternity Leaves (2 days) are available under certain conditions.\n5. **Approval**: All leaves, except those due to sickness, require prior approval from the Reporting Officer/Department Head.\n6. **Unplanned Leaves**: Employees must inform their Reporting Officer and HR Manager immediately in case of unplanned leaves.\n7. **Leave Without Pay (LWP)**: If an employee takes leave without approval or without sufficient leave balance, it may be treated as LWP."
+  }
+]

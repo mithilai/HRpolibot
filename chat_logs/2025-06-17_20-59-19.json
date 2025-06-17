@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "hi"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello, how can I assist you with the HR policy documents today?"
+  },
+  {
+    "role": "user",
+    "content": "tell me about sickleave"
+  },
+  {
+    "role": "assistant",
+    "content": "Sick Leave (SL) is a type of leave that can be taken when a member is not well. Here are the key points to know about Sick Leave:\n\n* Members can opt for Sick Leave when they are not well.\n* If a member takes more than 2 days of Sick Leave, they need to submit a medical certificate to the HR department for final approval.\n* If the medical certificate is not submitted before the monthly attendance freezing date, the leaves will be considered as 'NON-MEDICAL' and processed in 2 + LWP (Leave Without Pay) mode.\n\nIn other words, if you're sick, you can take Sick Leave, but if you're out for more than 2 days, you'll need to provide a doctor's note to support your leave."
+  }
+]
