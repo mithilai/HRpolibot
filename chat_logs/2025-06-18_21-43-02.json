@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "hi"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello, I'm here to help you with any questions or concerns you may have regarding HR policies at Prakash Software Solutions Pvt. Ltd. How can I assist you today?"
+  },
+  {
+    "role": "user",
+    "content": "i want to know about EL"
+  },
+  {
+    "role": "assistant",
+    "content": "Earned Leaves (EL) are generally taken for vacation, family outings, or leisure to relax and have fun with family and friends. They can also be applied for personal events such as marriage, death rituals, or long-term emergencies, subject to approval based on circumstances and genuine reasons.\n\nKey points to note about EL:\n\n* EL will be carried forward to the next year if not availed, based on the calculation given by the HR team, and a few ELs can be encashed at the end of the year (page not specified).\n* Encashment of EL will be done on Basic Salary, not Gross Salary.\n* In case of resignation, EL are not credited during the notice period, but the balanced EL will be encashed in the Full & Final Settlement.\n* EL can be availed if you don't have balance Casual Leaves (CL) available, but it will be subject to CL clauses, such as not applying more than 2 CLs at a stretch.\n* EL encashment and carry forward will be done on a yearly basis, based on the formula set by HR.\n\nPlease refer to the HR policy document for more details. If you have any specific questions or concerns, feel free to ask."
+  }
+]

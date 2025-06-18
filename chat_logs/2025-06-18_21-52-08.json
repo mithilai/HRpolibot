@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "tell me about vishal or vishakha policy"
+  },
+  {
+    "role": "assistant",
+    "content": "The Vishaka policy, also known as the Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, is not explicitly mentioned in the provided document. However, it is related to the policies on respect, anti-harassment, and non-discrimination that aim to provide guidelines in resolving workplace conflicts and handling complaints, promoting a positive work environment. For more information on this topic, you may want to refer to the company's policy manual, specifically the sections on anti-harassment and non-discrimination policies."
+  },
+  {
+    "role": "user",
+    "content": "but can you tell me more deeply about such policies"
+  },
+  {
+    "role": "assistant",
+    "content": "The HR policies at Prakash Software Solutions Pvt. Ltd. are designed to provide a framework for employee behavior and ensure operational efficiency. They cover areas such as working hours, attendance, workplace conduct, health and safety, respect, anti-harassment, and non-discrimination. \n\nOne key policy is the Code of Conduct, which applies to all employees, including directors, trainees, and office staff. This policy guides employees to act with professionalism, honesty, integrity, and high moral and ethical standards. It also outlines the expectation to avoid conflicts of interest, where personal interests may conflict with the company's interests.\n\nThese policies help create a positive work environment, enhance working relationships, and improve productivity. They also provide guidelines for resolving workplace conflicts and handling complaints. For more information, you can refer to the policy manual, which outlines the company's standards and objectives, including rules on job performance and employee interactions."
+  }
+]

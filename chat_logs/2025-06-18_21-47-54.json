@@ -1,0 +1,42 @@
+[
+  {
+    "role": "user",
+    "content": "hi"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello, how can I assist you with regards to Prakash Software Solutions Pvt. Ltd's HR policies today?"
+  },
+  {
+    "role": "user",
+    "content": "tell me about EL"
+  },
+  {
+    "role": "assistant",
+    "content": "EL stands for Earned Leaves. Earned Leaves are generally taken for vacation, family outing, leisure, or to relax and have fun with family and friends. They can also be applied for own marriage, close members' death rituals, or any kind of long-term emergency, along with marriage or bereavement leave.\n\nKey points to note about EL:\n\n* EL can be applied for a minimum of 2 days.\n* Medical certificates or doctor's reports may be required for EL, and HR may inquire with the respective doctors.\n* EL encashment and carry forward will be done on a yearly basis based on the formula set by HR.\n* EL will be carried forward to the next year if not availed in a particular year, and a few ELs can be encashed at the end of the year.\n* Encashment of EL will be done on Basic Salary and not Gross Salary.\n* In case of resignation, balanced EL is encashed in the Full & Final Settlement."
+  },
+  {
+    "role": "user",
+    "content": "what are different policies are there"
+  },
+  {
+    "role": "assistant",
+    "content": "Based on the provided document, some of the policies mentioned are:\n\n1. Leave Policy (page 10)\n2. HR policies (which include areas such as):\n   - Recruitment\n   - Compensation\n   - Termination\n   - Benefits\n   - Employee relations\n   - Leaves of absence\n   - Respect\n   - Anti-harassment\n   - Non-discrimination\n\nNote: The document may not be exhaustive, and there could be other policies not mentioned in the provided content."
+  },
+  {
+    "role": "user",
+    "content": "what about vishal policy"
+  },
+  {
+    "role": "assistant",
+    "content": "There is no information available about a \"Vishal policy\" in the provided document content. If you could provide more context or details about the Vishal policy, I'll be happy to try and assist you further."
+  },
+  {
+    "role": "user",
+    "content": "is there any policy regrading employee accident"
+  },
+  {
+    "role": "assistant",
+    "content": "Although there is no direct mention of a policy regarding employee accidents in the provided content, it is mentioned that if an employee's finger is not working properly, they must inform HR through an email for the record. However, this does not specifically address accidents. It is recommended to refer to the policy manual for more information on this topic."
+  }
+]
