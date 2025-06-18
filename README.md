@@ -54,7 +54,7 @@ PSSPL Assist is an internal HR policy chatbot developed for Prakash Software Sol
 2. Create a `.env` file and add your Groq API key:
 
    ```
-   GROQ_API_KEY=your_groq_api_key_here #GROQ_API_KEY=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
+   GROQ_API_KEY=your_groq_api_key_here
 
    ```
 
