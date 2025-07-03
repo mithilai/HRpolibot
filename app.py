@@ -32,23 +32,46 @@ def save_chat_to_firestore(user_id, session_id, messages):
     })
 
 # ---------- Helper: Login Authentication ----------
+# def check_login():
+#     valid_users = json.loads(os.getenv("VALID_USERS", "{}"))
+#     if "authenticated" in st.session_state and st.session_state.authenticated:
+#         return
+#     with st.form("login"):
+#         st.subheader("Login to PSSPL Polibot")
+#         user = st.text_input("User ID")
+#         pwd = st.text_input("Password", type="password")
+#         submit = st.form_submit_button("Login")
+#         if submit:
+#             if user in valid_users and valid_users[user] == pwd:
+#                 st.session_state.authenticated = True
+#                 st.session_state.user_id = user
+#                 st.success("Login successful")
+#             else:
+#                 st.error("Invalid credentials")
+#         st.stop()
+
 def check_login():
     valid_users = json.loads(os.getenv("VALID_USERS", "{}"))
-    if "authenticated" in st.session_state and st.session_state.authenticated:
+
+    if st.session_state.get("authenticated"):
         return
+
     with st.form("login"):
         st.subheader("Login to PSSPL Polibot")
         user = st.text_input("User ID")
         pwd = st.text_input("Password", type="password")
         submit = st.form_submit_button("Login")
+
         if submit:
             if user in valid_users and valid_users[user] == pwd:
                 st.session_state.authenticated = True
                 st.session_state.user_id = user
-                st.success("Login successful")
+                st.rerun()  # 🔁 This forces rerun so chatbot UI loads immediately
             else:
                 st.error("Invalid credentials")
-        st.stop()
+                st.stop()  # ❌ Stop only if login fails
+        else:
+            st.stop()  # ❌ Stop if form not submitted yet
 
 # ---------- Login Check ----------
 check_login()
