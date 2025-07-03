@@ -2,81 +2,112 @@ import os
 from langchain_groq import ChatGroq
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
-from langchain.chains import RetrievalQA
+from langchain.memory import ConversationBufferMemory
+from langchain.chains import StuffDocumentsChain, LLMChain
+from langchain.chains.conversational_retrieval.base import ConversationalRetrievalChain
 from langchain.prompts import PromptTemplate
+
 from policy_handler import load_policy_pdf
 
 # Constants for file paths
-INDEX_DIR = "faiss_index"  # Directory where FAISS index is stored/loaded
+INDEX_DIR = "faiss_index"
 PDF_PATH = "data/POLICIES 2.3- Code of Conduct, Work Hour Policy & Leave Policy 2025.pdf"
 
 def get_or_create_qa_chain():
     """
-    Creates or loads a RetrievalQA chain for querying HR policy documents.
+    Creates or loads a ConversationalRetrievalChain for querying HR policy documents.
 
-    - If the FAISS vector index is already present, it will be loaded.
-    - Otherwise, the policy PDF will be read, embedded, and indexed.
-    - A RetrievalQA chain is returned that can answer questions using Groq LLaMA-3 model.
+    - Loads or builds a FAISS vector store from the provided PDF.
+    - Initializes an LLM from Groq (LLaMA-3).
+    - Defines custom prompts for answering and question generation.
+    - Returns a conversational chain with retrieval and memory.
 
     Returns:
-        RetrievalQA: A ready-to-use question-answering chain.
+        ConversationalRetrievalChain: Multi-turn QA chain with vector retrieval.
     """
-    # Initialize HuggingFace embedding model (MiniLM)
+    # Step 1: Initialize the embeddings model
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
-    # Check if FAISS index exists; load if yes, create if not
+    # Step 2: Load or create FAISS vector index
     if os.path.exists(INDEX_DIR):
-        # Load the FAISS vector store from disk (allowing deserialization)
         vectorstore = FAISS.load_local(INDEX_DIR, embeddings, allow_dangerous_deserialization=True)
     else:
-        # Load and split policy PDF into documents
         docs = load_policy_pdf(PDF_PATH)
-
-        # Create FAISS vector store from the loaded documents
         vectorstore = FAISS.from_documents(docs, embeddings)
-
-        # Save vector index locally to reuse later
         vectorstore.save_local(INDEX_DIR)
 
-    # Set up retriever for searching relevant document chunks
     retriever = vectorstore.as_retriever()
 
-    # Initialize LLM from Groq (LLaMA-3 70B model)
+    # Step 3: Initialize the language model (Groq LLaMA-3)
     llm = ChatGroq(
         groq_api_key=os.getenv("GROQ_API_KEY"),
         model_name="llama-3.3-70b-versatile",
         temperature=0.1
     )
 
-    # Define the prompt used to instruct the LLM
-    prompt = PromptTemplate(
+    # Step 4: Prompt for answering HR policy questions
+    qa_prompt = PromptTemplate(
         input_variables=["context", "question"],
         template="""
-You are an assistant helping employees understand HR policies at Prakash Software Solutions Pvt. Ltd.
+        You are an assistant helping employees understand HR policies at Prakash Software Solutions Pvt. Ltd.
 
-Use the following extracted document content to answer the question.
-Be concise, professional, and easy to understand.
-If available, mention the policy page number for reference.
-and when there is page number to share you can state as for more information refer to page no.
-if not able to find the reference page not talk about it just answer to user query.
+        Use the following extracted document content to answer the question.
+        Be concise, professional, and easy to understand.
+        If available, mention the policy page number for reference.
+        If the page number is available, mention it like: "For more information, refer to page X."
+        If it's not available, do not mention any page number—just answer the question.
 
-Context:
-{context}
 
-Question:
-{question}
+        Context:
+        {context}
 
-Answer:
-"""
+        Question:
+        {question}
+
+        Answer:
+        """
     )
 
-    # Construct a RetrievalQA chain using the retriever and LLM
-    qa_chain = RetrievalQA.from_chain_type(
-        llm=llm,
-        chain_type="stuff",  # Simply concatenate context chunks
+    # Step 5: Prompt for rephrasing follow-up questions
+    question_prompt = PromptTemplate(
+        input_variables=["chat_history", "question"],
+        template="""
+        Given the following conversation and a follow-up question, rephrase the follow-up question to be a standalone question.
+
+        Chat History:
+        {chat_history}
+        Follow-Up Input:
+        {question}
+
+        Standalone question:
+        """
+    )
+
+    # Step 6: Build chains
+    qa_llm_chain = LLMChain(llm=llm, prompt=qa_prompt)
+    question_generator_chain = LLMChain(llm=llm, prompt=question_prompt)
+
+    # Step 7: Combine documents into a StuffDocumentsChain
+    stuff_chain = StuffDocumentsChain(
+        llm_chain=qa_llm_chain,
+        document_variable_name="context"
+    )
+
+    # Step 8: Add memory to track chat history
+    memory = ConversationBufferMemory(
+        memory_key="chat_history",
+        return_messages=True,
+        output_key="result"
+    )
+
+    # Step 9: Build the final conversational chain
+    qa_chain = ConversationalRetrievalChain(
         retriever=retriever,
-        chain_type_kwargs={"prompt": prompt},
-        return_source_documents=True  # Set to True if you want raw source docs
+        combine_docs_chain=stuff_chain,
+        question_generator=question_generator_chain,
+        memory=memory,
+        return_source_documents=True,
+        output_key="result"
     )
 
     return qa_chain

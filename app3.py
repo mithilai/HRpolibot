@@ -1,5 +1,5 @@
 """
-Main Streamlit app to run PSSPL Polibot with login and Firebase logging
+Main Streamlit app to run PSSPL Polibot with ip address
 """
 import os
 import json
@@ -8,19 +8,28 @@ from datetime import datetime
 
 import streamlit as st
 from dotenv import load_dotenv
+
 import firebase_admin
 from firebase_admin import credentials, firestore
 
 from qa_chain import get_or_create_qa_chain
 
-# ---------- Load Environment ----------
+# ---------- Load Environment Variables ----------
 load_dotenv()
 
 # ---------- Firebase Initialization ----------
 if not firebase_admin._apps:
     cred = credentials.Certificate(json.loads(os.getenv("FIREBASE_CREDENTIAL_JSON")))
     firebase_admin.initialize_app(cred)
+
 db = firestore.client()
+
+# ---------- Helper: Get User IP ----------
+def get_user_ip():
+    try:
+        return requests.get("https://api.ipify.org").text
+    except:
+        return "unknown"
 
 # ---------- Helper: Save Chat to Firebase ----------
 def save_chat_to_firestore(user_id, session_id, messages):
@@ -31,28 +40,6 @@ def save_chat_to_firestore(user_id, session_id, messages):
         "timestamp": firestore.SERVER_TIMESTAMP
     })
 
-# ---------- Helper: Login Authentication ----------
-def check_login():
-    valid_users = json.loads(os.getenv("VALID_USERS", "{}"))
-    if "authenticated" in st.session_state and st.session_state.authenticated:
-        return
-    with st.form("login"):
-        st.subheader("Login to PSSPL Polibot")
-        user = st.text_input("User ID")
-        pwd = st.text_input("Password", type="password")
-        submit = st.form_submit_button("Login")
-        if submit:
-            if user in valid_users and valid_users[user] == pwd:
-                st.session_state.authenticated = True
-                st.session_state.user_id = user
-                st.success("Login successful")
-            else:
-                st.error("Invalid credentials")
-        st.stop()
-
-# ---------- Login Check ----------
-check_login()
-
 # ---------- Streamlit Page Setup ----------
 st.set_page_config(page_title="PSSPL Polibot", page_icon="images/logo.png", layout="wide")
 
@@ -62,14 +49,17 @@ st.markdown("""
     html, body, [class*="css"] {
         font-family: 'Segoe UI', sans-serif;
     }
+
     div.stChatMessage.user {
         display: flex !important;
         justify-content: flex-end !important;
     }
+
     div.stChatMessage.assistant {
         display: flex !important;
         justify-content: flex-start !important;
     }
+
     .stChatMessage.user {
         background-color: #dbeafe !important;
         border-radius: 20px;
@@ -79,6 +69,7 @@ st.markdown("""
         text-align: right;
         max-width: 75%;
     }
+
     .stChatMessage.assistant {
         background-color: #f0fdf4 !important;
         border-radius: 20px;
@@ -88,29 +79,35 @@ st.markdown("""
         text-align: left;
         max-width: 75%;
     }
+
     .block-container {
         padding-top: 2rem;
     }
+
     .app-title-container {
         padding-top: 1.5rem;
         padding-bottom: 1rem;
     }
+
     .app-title {
         font-size: 20px;
         font-weight: 600;
         margin: 0;
     }
+
     @media (prefers-color-scheme: dark) {
         .app-title {
             color: #e1e1e1;
         }
     }
+
     @media (prefers-color-scheme: light) {
         .app-title {
             color: #333333;
         }
     }
     </style>
+
     <div class="app-title-container">
         <h3 class="app-title">PSSPL Polibot</h3>
     </div>
@@ -120,19 +117,22 @@ st.markdown("""
 if "qa_chain" not in st.session_state:
     st.session_state.qa_chain = get_or_create_qa_chain()
 
+if "user_id" not in st.session_state:
+    st.session_state.user_id = get_user_ip()
+
 if "session_id" not in st.session_state:
     st.session_state.session_id = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# ---------- Display Chat History ----------
+# ---------- Display Previous Messages ----------
 for msg in st.session_state.messages:
     avatar = "👨‍💼" if msg["role"] == "user" else "🤖"
     with st.chat_message(msg["role"], avatar=avatar):
         st.markdown(msg["content"])
 
-# ---------- Chat Input ----------
+# ---------- User Input ----------
 user_input = st.chat_input("Ask anything about HR policies...")
 
 if user_input:
@@ -143,6 +143,8 @@ if user_input:
     with st.spinner("Thinking..."):
         response = st.session_state.qa_chain.invoke({"question": user_input})
         answer = response["result"]
+        # answer = response["answer"]
+
 
     with st.chat_message("assistant", avatar="🤖"):
         st.markdown(answer)
